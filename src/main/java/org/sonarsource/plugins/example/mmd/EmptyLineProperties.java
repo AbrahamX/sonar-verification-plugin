@@ -15,6 +15,9 @@ public class EmptyLineProperties{
     public static final String CATEGORY = "MMD Team";
 
 
+    public EmptyLineProperties() {
+    }
+
     public static List<PropertyDefinition> getProperties() {
         return asList(
                 PropertyDefinition.builder(EMPTYLINE_KEY)
