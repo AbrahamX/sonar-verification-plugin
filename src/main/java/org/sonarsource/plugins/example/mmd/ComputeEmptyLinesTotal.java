@@ -4,8 +4,6 @@ import org.sonar.api.ce.measure.Component;
 import org.sonar.api.ce.measure.Measure;
 import org.sonar.api.ce.measure.MeasureComputer;
 
-
-import static org.sonarsource.plugins.example.measures.ExampleMetrics.FILENAME_SIZE;
 import static org.sonarsource.plugins.example.mmd.EmptyLineMetrics.EMPTY_LINES_COUNT;
 
 public class ComputeEmptyLinesTotal implements MeasureComputer {
@@ -23,7 +21,7 @@ public class ComputeEmptyLinesTotal implements MeasureComputer {
             for (Measure child : context.getChildrenMeasures(EMPTY_LINES_COUNT.key())) {
                 sum += child.getIntValue();
             }
-            context.addMeasure(FILENAME_SIZE.key(), sum);
+            context.addMeasure(EMPTY_LINES_COUNT.key(), sum);
         }
     }
 }
