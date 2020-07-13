@@ -29,6 +29,10 @@ import org.sonarsource.plugins.example.measures.ComputeSizeAverage;
 import org.sonarsource.plugins.example.measures.ComputeSizeRating;
 import org.sonarsource.plugins.example.measures.ExampleMetrics;
 import org.sonarsource.plugins.example.measures.SetSizeOnFilesSensor;
+import org.sonarsource.plugins.example.mmd.ComputeEmptyLinesTotal;
+import org.sonarsource.plugins.example.mmd.EmptyLineMetrics;
+import org.sonarsource.plugins.example.mmd.EmptyLineProperties;
+import org.sonarsource.plugins.example.mmd.SetEmptyLinesCountOnSensor;
 import org.sonarsource.plugins.example.rules.CreateIssuesOnJavaFilesSensor;
 import org.sonarsource.plugins.example.rules.FooLintIssuesLoaderSensor;
 import org.sonarsource.plugins.example.rules.FooLintRulesDefinition;
@@ -64,13 +68,28 @@ public class ExamplePlugin implements Plugin {
     context.addExtensions(FooLintRulesDefinition.class, FooLintIssuesLoaderSensor.class);
 
     // tutorial on settings
+    // Abe's note: here adds a property to context, which can seen and changed at sonar server GUI.
+    // When a sensor is running, it will retrieve the property value from context. If the value is true, the sensor
+    // will 'say hello'
     context
       .addExtensions(HelloWorldProperties.getProperties())
       .addExtension(SayHelloFromScanner.class);
 
     // tutorial on web extensions
+    // Abe's note:
+    // The pages are registered in src/main/java/org/sonarsource/plugins/example/web/MyPluginPageDefinition.java,
+    // and their respective front-end source code is located in src/main/js/.
+    //
+    // This example plugin uses Webpack for building the final JavaScript. Whatever build system you choose to use,
+    // the final result MUST adhere to the following rules:
+    //
+    // # 1 entry file per extension page.
+    // # The name of each entry file must correspond to the page_id of the registered page
+    //   (see src/main/java/org/sonarsource/plugins/example/web/MyPluginPageDefinition.java and compare with the entry points in conf/webpack/webpack.config.js).
+    // # Each entry file must be located in the resulting JAR's   static/   folder.
     context.addExtension(MyPluginPageDefinition.class);
 
+    // Abe's note: a remarkable thing is that here a FLUENT BUILDER is used
     context.addExtensions(asList(
       PropertyDefinition.builder("sonar.foo.file.suffixes")
         .name("Suffixes FooLint")
@@ -78,5 +97,11 @@ public class ExamplePlugin implements Plugin {
         .category("FooLint")
         .defaultValue("")
         .build()));
+
+
+    
+    context.addExtension(EmptyLineProperties.getProperties());
+    context.addExtensions(EmptyLineMetrics.class, SetEmptyLinesCountOnSensor.class, ComputeEmptyLinesTotal.class);
+
   }
 }

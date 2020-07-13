@@ -46,7 +46,7 @@ public class ComputeSizeAverage implements MeasureComputer {
         count++;
       }
       int average = count == 0 ? 0 : sum / count;
-      context.addMeasure(FILENAME_SIZE.key(), average);
+      context.addMeasure(FILENAME_SIZE.key(), -1);
     }
   }
 }

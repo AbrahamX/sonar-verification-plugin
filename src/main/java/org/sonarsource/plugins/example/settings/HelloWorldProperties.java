@@ -26,7 +26,10 @@ import static java.util.Arrays.asList;
 
 public class HelloWorldProperties {
 
+  // This is the key showed in [configuration] tab
   public static final String HELLO_KEY = "sonar.example.hello";
+
+  // This CATEGORY tab appears at [Administration] - [Configuration]
   public static final String CATEGORY = "Properties Example";
 
   private HelloWorldProperties() {
