@@ -99,7 +99,7 @@ public class ExamplePlugin implements Plugin {
         .build()));
 
 
-    
+
     context.addExtension(EmptyLineProperties.getProperties());
     context.addExtensions(EmptyLineMetrics.class, SetEmptyLinesCountOnSensor.class, ComputeEmptyLinesTotal.class);
 

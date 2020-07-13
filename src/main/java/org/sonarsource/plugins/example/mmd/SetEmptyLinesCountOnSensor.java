@@ -30,7 +30,7 @@ public class SetEmptyLinesCountOnSensor implements Sensor {
             int empty_lines = 0;
 
             try {
-                InputStream input =  file.inputStream();
+                InputStream input = file.inputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(input));
 
                 String line = null;
@@ -54,10 +54,10 @@ public class SetEmptyLinesCountOnSensor implements Sensor {
                     withValue(empty_lines).
                     save();
 
-            if (sensorContext.config().getBoolean(EmptyLineProperties.EMPTYLINE_KEY).get()) {
-                // print log only if property is set to true
-                Loggers.get(getClass()).info(empty_lines + " in " + file.filename());
-            }
+//            if (sensorContext.config().getBoolean(EmptyLineProperties.EMPTYLINE_KEY).get()) {
+            // print log only if property is set to true
+            Loggers.get(getClass()).info(empty_lines + " in " + file.filename());
+//            }
         }
     }
 }
