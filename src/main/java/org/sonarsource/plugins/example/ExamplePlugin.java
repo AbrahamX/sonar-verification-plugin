@@ -103,5 +103,13 @@ public class ExamplePlugin implements Plugin {
     context.addExtension(EmptyLineProperties.getProperties());
     context.addExtensions(EmptyLineMetrics.class, SetEmptyLinesCountOnSensor.class, ComputeEmptyLinesTotal.class);
 
+    context.addExtensions(asList(
+            PropertyDefinition.builder("sonar.mmd.config.arg1")
+                    .name("mmd arg 1")
+                    .description("desc of mmd arg 1")
+                    .category("MMD")
+                    .defaultValue("")
+                    .build()));
+
   }
 }
